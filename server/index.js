@@ -4,6 +4,10 @@ const app = express();
 const { port, homeMSG, hashome } = require("../config/server.json");
 
 app.get("/", (req, res) => {
+  if (!hashome) {
+    res.status(404);
+    return;
+  }
   res.send(
     homeMSG == "dflt"
       ? "<h1>easy api</h1><hr><h3>easy api default home page</h3>"
