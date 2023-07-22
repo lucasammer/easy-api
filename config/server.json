@@ -1,5 +1,6 @@
 {
   "port": 8080,
   "homeMSG": "dflt",
-  "hashome": true
+  "hashome": true,
+  "showerrors": true
 }
