@@ -79,16 +79,24 @@ if (allowsignup) {
     try {
       let buffer = new Buffer.from(req.query.origin);
       let keys = fs.readFileSync(keyfile);
-      keys = JSON.parse(keyfile);
-      if (keys.hasOwnProperty(req.query.keys)) {
+      keys = JSON.parse(keys);
+      if (keys.hasOwnProperty(buffer.toString(keyencoding))) {
         error(403, res);
         return;
       }
+      keys =
+        JSON.stringify(keys).replace("}", "") +
+        ',"' +
+        buffer.toString(keyencoding) +
+        '":false}';
+
+      fs.writeFileSync(keyfile, keys);
       res.json(
         JSON.parse(`{"created": true,"key":"${buffer.toString(keyencoding)}"}`)
       );
     } catch (e) {
-      error((code = 501), (res = res), (data = e));
+      console.warn(e);
+      error(501, res, true, e);
     }
   });
 }
