@@ -36,8 +36,9 @@ const error = (code, res, doshow = showerrors, data = "nothing to show") => {
         `<h1>${code}</h1><hr><h3>Something went wrong!</h3><script>console.error(${data})</script>`
       );
     }
+  } else {
+    res.sendstatus(code);
   }
-  res.sendStatus(code);
   return;
 };
 
