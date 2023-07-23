@@ -11,9 +11,35 @@ const {
   apiFolder,
   allKeys,
   keyfile,
+  allowsignup,
+  signupLink,
+  KeyCreationOriginMustMatch,
+  keyencoding,
 } = require("../config/server.json");
 
 const { api } = require(APIfile);
+
+const error = (code, res, doshow = showerrors, data = "nothing to show") => {
+  if (doshow) {
+    if (code == 404) {
+      res.send("<h1>404</h1><hr><h3>url not found!</h3>");
+    } else if (code == 403) {
+      res.send(
+        "<h1>403</h1><hr><h2>Forbidden</h2><h3>You do not have acces to this url!</h3>"
+      );
+    } else if (code == 501) {
+      res.send(
+        `<h1>501</h1><hr><h2>Internal server error</h2><h3>Something went wrong server side, there is nothing you can do to fix this</h3><script>console.error(${data})</script>`
+      );
+    } else {
+      res.send(
+        `<h1>${code}</h1><hr><h3>Something went wrong!</h3><script>console.error(${data})</script>`
+      );
+    }
+  }
+  res.sendStatus(code);
+  return;
+};
 
 app.get("/", (req, res) => {
   if (!hashome) {
@@ -32,6 +58,39 @@ app.get("/checkKey", (req, res) => {
   keys = JSON.parse(keys);
   res.json(JSON.parse(`{"valid": ${keys.hasOwnProperty(req.query.key)}}`));
 });
+
+if (allowsignup) {
+  app.get(signupLink, (req, res) => {
+    if (!req.query.hasOwnProperty("origin")) {
+      res.json(
+        JSON.parse(`{"created": false, "error": "no origin specified"}`)
+      );
+      return;
+    }
+    if (!req.query.origin.match(KeyCreationOriginMustMatch)) {
+      res.json(
+        JSON.parse(
+          `{"created": false, "error": "origin doesn't meet criteria"}`
+        )
+      );
+      return;
+    }
+    try {
+      let buffer = new Buffer.from(req.query.origin);
+      let keys = fs.readFileSync(keyfile);
+      keys = JSON.parse(keyfile);
+      if (keys.hasOwnProperty(req.query.keys)) {
+        error(403, res);
+        return;
+      }
+      res.json(
+        JSON.parse(`{"created": true,"key":"${buffer.toString(keyencoding)}"}`)
+      );
+    } catch (e) {
+      error((code = 501), (res = res), (data = e));
+    }
+  });
+}
 
 for (const apiElement in api) {
   if (Object.hasOwnProperty.call(api, apiElement)) {
@@ -55,27 +114,6 @@ for (const apiElement in api) {
     });
   }
 }
-
-const error = (code, res) => {
-  if (showerrors) {
-    if (code == 404) {
-      res.send("<h1>404</h1><hr><h3>url not found!</h3>");
-    } else if (code == 403) {
-      res.send(
-        "<h1>403</h1><hr><h2>Forbidden</h2><h3>You do not have acces to this url!</h3>"
-      );
-    } else if (code == 501) {
-      res.send(
-        "<h1>501</h1><hr><h2>Internal server error</h2><h3>Something went wrong server side, there is nothing you can do to fix this</h3>"
-      );
-    } else {
-      res.send(`<h1>${code}</h1><hr><h3>Something went wrong!</h3>`);
-    }
-  } else {
-    res.status(code);
-  }
-  return;
-};
 
 app.listen(port, () => {
   console.log("started listing on port %d (http://localhost:%d)", port, port);

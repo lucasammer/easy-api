@@ -7,5 +7,9 @@
   "apiFolder": "../api/",
   "allKeys": false,
   "keyfile": "../config/validKeys.json",
-  "allowsignup": true
+  "allowsignup": true,
+  "signupLink": "/createKey",
+  "keyencoding": "base64",
+  "KeyCreationOriginMustMatch": "\\w(@)\\w(.)\\w",
+  "KeyCreationoriginMatchDesc": "matches any email (hopefully)"
 }
