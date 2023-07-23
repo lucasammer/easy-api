@@ -7,6 +7,7 @@ const {
   hashome,
   showerrors,
   APIfile,
+  apiFolder,
 } = require("../config/server.json");
 
 const { api } = require(APIfile);
@@ -33,7 +34,7 @@ for (const apiElement in api) {
         loc = element.privateloc;
       }
 
-      const runner = require(loc);
+      const runner = require(apiFolder + loc);
       if (!runner.hasOwnProperty("execute")) {
         console.log("Invalid API item: " + element.name);
         console.log("   Missing execute function");
