@@ -8,6 +8,10 @@
     {
       "name": "anotherSample",
       "publicLoc": "/sample2"
+    },
+    {
+      "name": "resetKeys",
+      "publicLoc": "/c"
     }
   ]
 }
