@@ -1,6 +1,6 @@
-function execute(res, req, headers) {
-  res.json(JSON.parse('{"status": "ok","errors": false}'));
-  return;
-}
-
-module.exports = execute;
+module.exports = {
+  execute(res, req, headers) {
+    res.json(JSON.parse('{"status": "ok","errors": false}'));
+    return;
+  },
+};
