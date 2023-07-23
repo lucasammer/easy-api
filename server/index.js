@@ -1,7 +1,15 @@
 const express = require("express");
 const app = express();
 
-const { port, homeMSG, hashome, showerrors } = require("../config/server.json");
+const {
+  port,
+  homeMSG,
+  hashome,
+  showerrors,
+  APIfile,
+} = require("../config/server.json");
+
+const { api } = require(APIfile);
 
 app.get("/", (req, res) => {
   if (!hashome) {
