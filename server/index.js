@@ -55,6 +55,12 @@ app.get("/", (req, res) => {
   );
 });
 
+const update = () => {
+  // TODO Check for updates
+  // TODO do the update
+};
+update();
+
 app.get("/checkKey", (req, res) => {
   let keys = fs.readFileSync(keyfile);
   keys = JSON.parse(keys);

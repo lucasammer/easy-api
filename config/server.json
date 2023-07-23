@@ -12,5 +12,6 @@
   "keyencoding": "base64",
   "KeyCreationOriginMustMatch": "\\w(@)\\w(.)\\w",
   "KeyCreationoriginMatchDesc": "matches any email (hopefully)",
-  "ResetKeysTo": "{ \"--MasterKey--\": true }"
+  "ResetKeysTo": "{ \"--MasterKey--\": true }",
+  "CheckForUpdates": true
 }
