@@ -1,0 +1,14 @@
+{
+  "config": {},
+  "api": [
+    {
+      "name": "sample",
+      "publicLoc": "/sample",
+      "privateloc": "sampleItem.js"
+    },
+    {
+      "name": "anotherSample",
+      "publicLoc": "/sample2"
+    }
+  ]
+}

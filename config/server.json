@@ -2,5 +2,6 @@
   "port": 8080,
   "homeMSG": "dflt",
   "hashome": true,
-  "showerrors": true
+  "showerrors": true,
+  "APIfile": "../config/api.json"
 }
