@@ -1,4 +1,4 @@
-const { error } = require("../server/index");
+const { error } = require("../server/");
 const { ResetKeysTo, keyfile } = require("../config/server.json");
 const fs = require("node:fs");
 

@@ -3,11 +3,18 @@
     {
       "name": "sample",
       "publicLoc": "/sample",
-      "privateloc": "sampleItem.js"
+      "privateloc": "sampleItem.js",
+      "desc": "This is an example API item, it's name is 'sample'. the URL this can be accessed at is at '/sample' if privateloc is not defined, it will not work. if the privateloc is not defined, it will try to use a file in the specified api folder with the same name. the description is optional."
+    },
+    {
+      "name": "redirect",
+      "publicLoc": "/redir",
+      "desc": "Simple example redirection script that logs all redirects"
     },
     {
       "name": "resetKeys",
-      "publicLoc": "/resetKeys"
+      "publicLoc": "/resetKeys",
+      "desc": "Script to reset valid API keys"
     }
   ]
 }
