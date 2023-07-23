@@ -1,8 +1,6 @@
-data: {
-  function execute(res, req, headers) {
-    res.json(JSON.parse('{"status": "ok","errors": false}'));
-    return;
-  }
+function execute(res, req, headers) {
+  res.json(JSON.parse('{"status": "ok","errors": false}'));
+  return;
 }
 
-module.exports = data;
+module.exports = execute;
