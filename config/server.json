@@ -7,5 +7,5 @@
   "apiFolder": "../api/",
   "allKeys": false,
   "keyfile": "../config/validKeys.json",
-  "allowsignup"
+  "allowsignup": true
 }
