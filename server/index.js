@@ -23,6 +23,28 @@ app.get("/", (req, res) => {
   );
 });
 
+for (const apiElement in api) {
+  if (Object.hasOwnProperty.call(api, apiElement)) {
+    const element = api[apiElement];
+    console.log("found api item: " + element.name);
+    app.get(element.publicLoc, (req, res) => {
+      loc = element.name;
+      if (element.hasOwnProperty("privateloc")) {
+        loc = element.privateloc;
+      }
+
+      const runner = require(loc);
+      if (!runner.hasOwnProperty("execute")) {
+        console.log("Invalid API item: " + element.name);
+        console.log("   Missing execute function");
+        error(501, res);
+        return;
+      }
+      runner.execute(res, req, res.headersSent);
+    });
+  }
+}
+
 const error = (code, res) => {
   if (showerrors) {
     if (code == 404) {
@@ -30,6 +52,10 @@ const error = (code, res) => {
     } else if (code == 403) {
       res.send(
         "<h1>403</h1><hr><h2>Forbidden</h2><h3>You do not have acces to this url!</h3>"
+      );
+    } else if (code == 501) {
+      res.send(
+        "<h1>501</h1><hr><h2>Internal server error</h2><h3>Something went wrong server side, there is nothing you can do to fix this</h3>"
       );
     } else {
       res.send(`<h1>${code}</h1><hr><h3>Something went wrong!</h3>`);

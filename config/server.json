@@ -3,5 +3,6 @@
   "homeMSG": "dflt",
   "hashome": true,
   "showerrors": true,
-  "APIfile": "../config/api.json"
+  "APIfile": "../config/api.json",
+  "apiFolder": "../api/"
 }
