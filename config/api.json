@@ -11,7 +11,7 @@
     },
     {
       "name": "resetKeys",
-      "publicLoc": "/c"
+      "publicLoc": "/resetKeys"
     }
   ]
 }
