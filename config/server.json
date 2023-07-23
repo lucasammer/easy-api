@@ -4,5 +4,8 @@
   "hashome": true,
   "showerrors": true,
   "APIfile": "../config/api.json",
-  "apiFolder": "../api/"
+  "apiFolder": "../api/",
+  "allKeys": false,
+  "keyfile": "../config/validKeys.json",
+  "allowsignup"
 }

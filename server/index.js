@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require("node:fs");
 const app = express();
 
 const {
@@ -8,6 +9,8 @@ const {
   showerrors,
   APIfile,
   apiFolder,
+  allKeys,
+  keyfile,
 } = require("../config/server.json");
 
 const { api } = require(APIfile);
@@ -22,6 +25,12 @@ app.get("/", (req, res) => {
       ? "<h1>easy api</h1><hr><h3>easy api default home page</h3>"
       : homeMSG
   );
+});
+
+app.get("/checkKey", (req, res) => {
+  let keys = fs.readFileSync(keyfile);
+  keys = JSON.parse(keys);
+  res.json(JSON.parse(`{"valid": ${keys.hasOwnProperty(req.query.key)}}`));
 });
 
 for (const apiElement in api) {
@@ -41,7 +50,8 @@ for (const apiElement in api) {
         error(501, res);
         return;
       }
-      runner.execute(res, req, res.headersSent);
+
+      runner.execute(res, req, req.headers);
     });
   }
 }
@@ -70,3 +80,7 @@ const error = (code, res) => {
 app.listen(port, () => {
   console.log("started listing on port %d (http://localhost:%d)", port, port);
 });
+
+module.exports = {
+  error,
+};
