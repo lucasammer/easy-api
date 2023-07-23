@@ -15,6 +15,7 @@ const {
   signupLink,
   KeyCreationOriginMustMatch,
   keyencoding,
+  ResetKeysTo,
 } = require("../config/server.json");
 
 const { api } = require(APIfile);

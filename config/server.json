@@ -11,5 +11,6 @@
   "signupLink": "/createKey",
   "keyencoding": "base64",
   "KeyCreationOriginMustMatch": "\\w(@)\\w(.)\\w",
-  "KeyCreationoriginMatchDesc": "matches any email (hopefully)"
+  "KeyCreationoriginMatchDesc": "matches any email (hopefully)",
+  "ResetKeysTo": "{ \"--MasterKey--\": true }"
 }
