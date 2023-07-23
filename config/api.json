@@ -6,10 +6,6 @@
       "privateloc": "sampleItem.js"
     },
     {
-      "name": "anotherSample",
-      "publicLoc": "/sample2"
-    },
-    {
       "name": "resetKeys",
       "publicLoc": "/resetKeys"
     }
