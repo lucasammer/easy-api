@@ -13,5 +13,7 @@
   "KeyCreationOriginMustMatch": "\\w(@)\\w(.)\\w",
   "KeyCreationoriginMatchDesc": "matches any email (hopefully)",
   "ResetKeysTo": "{ \"--MasterKey--\": true }",
-  "CheckForUpdates": true
+  "CheckForUpdates": true,
+  "AuthFile": "../config/auth0-settings_test.json",
+  "AcceptsAuth0": true
 }
