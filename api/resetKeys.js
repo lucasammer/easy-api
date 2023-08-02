@@ -1,21 +1,21 @@
 const { error } = require("../server/");
 const { ResetKeysTo, keyfile } = require("../config/server.json");
 const fs = require("node:fs");
+const authprovider = require("../server/authprovider");
 
 module.exports = {
   execute(res, req, headers) {
     let keys = fs.readFileSync(keyfile);
     keys = JSON.parse(keys);
     if (
-      !req.query.hasOwnProperty("key") ||
-      !keys.hasOwnProperty(req.query.key) ||
-      !keys[req.query.key]
+      !req.query.hasOwnProperty("key") || // if the key is not in the request URL
+      !authprovider.defaults.isMaster(req.query.key) // if the key is not valid and the master key
     ) {
-      error(403, res);
+      error(403, res); // if its not the master key, return 403 forbidden
       return;
     }
     try {
-      fs.writeFileSync(keyfile, ResetKeysTo);
+      fs.writeFileSync(keyfile, ResetKeysTo); // try to write the default to the keyfile
     } catch (e) {
       error(501, res);
       console.warn(e);
