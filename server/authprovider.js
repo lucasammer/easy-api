@@ -1,4 +1,4 @@
-const fs = rquire("node:fs");
+const fs = require("node:fs");
 const keyfile = require("../config/server.json").keyfile;
 
 /**
