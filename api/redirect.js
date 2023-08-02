@@ -19,7 +19,7 @@ module.exports = {
     }
 
     logmessage += req.query.to;
-    fs.appendFileSync("../redirects.log", logmessage);
+    fs.appendFileSync("../redirects.log", logmessage + "\n");
     res.send(
       `<p>if you are not redirected click <a href="${req.query.to}">here</a></p><script>window.location = "${req.query.to}"</script>`
     );
