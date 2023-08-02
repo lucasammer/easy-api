@@ -1,3 +1,6 @@
+const fs = rquire("node:fs");
+const keyfile = require("../config/server.json").keyfile;
+
 /**
  * Providing authentication functions for the easy api
  * @module authprovider
@@ -45,3 +48,23 @@ class auth0 {
      -d "{\"grant_type\":\"client_credentials\",\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET\",\"audience\":\"https://YOUR_API_IDENTIFIER\"}"
      ```
 */
+
+const validKey = (key) => {
+  let keys = fs.readFileSync(keyfile);
+  keys = JSON.parse(keys);
+  return keys.hasOwnProperty(key);
+};
+
+const isMaster = (key) => {
+  if (validKey(key)) {
+    let keys = fs.readFileSync(keyfile);
+    keys = JSON.parse(keys);
+    return keys[key];
+  }
+  return false;
+};
+
+module.exports = {
+  auth0,
+  defaults: { validKey, isMaster },
+};
