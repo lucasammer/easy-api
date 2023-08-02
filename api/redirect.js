@@ -14,11 +14,14 @@ module.exports = {
     }
 
     if (!req.query.hasOwnProperty("to")) {
-      error(404, res);
+      error(404, res, true);
       return;
     }
 
     logmessage += req.query.to;
     fs.appendFileSync("../redirects.log", logmessage);
+    res.send(
+      `<p>if you are not redirected click <a href="${req.query.to}">here</a></p><script>window.location = "${req.query.to}"</script>`
+    );
   },
 };
