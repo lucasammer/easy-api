@@ -8,6 +8,9 @@ const keyfile = require("../config/server.json").keyfile;
 
 class auth0 {
   constructor(key) {
+    if (!require("../config/server.json").AcceptsAuth0) {
+      throw new Error("API doesn't accept auth0!");
+    }
     // Key is a base64 Hash of the user id
     this.userid = Buffer.from(key, "base64").toString("utf-8");
     // "W1Rlc3RpbmcgU3RyaW5nXQ==" is "[Testing String]"
