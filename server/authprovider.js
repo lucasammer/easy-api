@@ -20,7 +20,7 @@ class auth0 {
    * Check if a key a user provided is a valid key for the auth0 account set in the AuthFile
    * @function isValid
    */
-  async isValid(force = false) {
+  async isValid(callback = (valid) => {}, force = false) {
     if (!force && typeof this.valid == Boolean) {
       return this.valid;
     }
@@ -34,9 +34,11 @@ class auth0 {
       .then((response) => {
         const userData = response.data;
         this.valid = true;
+        callback(this.valid);
       })
       .catch((e) => {
         this.valid = false;
+        callback(this.valid);
       });
     return this.valid;
   }
