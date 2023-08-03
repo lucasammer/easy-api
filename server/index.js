@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("node:fs");
 const app = express();
+const cors = require("cors");
 
 const {
   port,
@@ -16,7 +17,14 @@ const {
   KeyCreationOriginMustMatch,
   keyencoding,
   ResetKeysTo,
+  corsOrigin,
 } = require("../config/server.json");
+
+app.use(
+  cors({
+    origin: corsOrigin,
+  })
+);
 
 const { api } = require(APIfile);
 
