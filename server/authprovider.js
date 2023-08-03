@@ -12,7 +12,7 @@ class auth0 {
       throw new Error("API doesn't accept auth0!");
     }
     // Key is a base64 Hash of the user id
-    this.userid = Buffer.from(key, "base64url").toString("utf-8");
+    this.userid = decodeURI(Buffer.from(key, "base64url").toString("utf-8"));
     // "W1Rlc3RpbmcgU3RyaW5nXQ==" is "[Testing String]"
     this.valid = undefined;
   }
