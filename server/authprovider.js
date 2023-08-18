@@ -26,9 +26,9 @@ class auth0 {
     }
     const axios = require("axios");
     const { AuthFile } = require("../config/server.json");
-    const { access_token, auth_domain } = require(AuthFile);
+    const { auth_domain } = require(AuthFile);
     const url = `https://${auth_domain}/api/v2/users/${this.userid}`;
-    const headers = { Authorization: `Bearer ${access_token}` };
+    const headers = { Authorization: `Bearer ${getAccessToken()}` };
     axios
       .get(url, { headers })
       .then((response) => {
@@ -53,6 +53,37 @@ class auth0 {
      -d "{\"grant_type\":\"client_credentials\",\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET\",\"audience\":\"https://YOUR_API_IDENTIFIER\"}"
      ```
 */
+
+const getAccessToken = async () => {
+  const {
+    auth_domain,
+    client_id,
+    client_secret,
+    api_identifier,
+  } = require(AuthFile);
+  const data = {
+    grant_type: "client_credentials",
+    client_id: client_id,
+    client_secret: client_secret,
+    audience: api_identifier,
+  };
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  return new Promise((resolve) => {
+    axios
+      .post(`https://${auth_domain}/oauth/token`, data, config)
+      .then((response) => {
+        console.log("Response:", response.data);
+        resolve(response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  });
+};
 
 const validKey = (key) => {
   let keys = fs.readFileSync(keyfile);

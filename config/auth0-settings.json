@@ -1,4 +1,6 @@
 {
-  "access_token": "YOUR MANAGEMENT API ACCESS TOKEN",
-  "auth_domain": "YOUR AUTH DOMAIN HERE"
+  "auth_domain": "YOUR AUTH DOMAIN HERE",
+  "client_id": "YOUR CLIENT ID HERE",
+  "client_secret": "YOUR CLIENT SECRET HERE",
+  "api_identifier": "YOUR **API** IDENTIFIER"
 }
