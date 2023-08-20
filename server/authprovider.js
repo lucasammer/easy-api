@@ -55,6 +55,8 @@ class auth0 {
 */
 
 const getAccessToken = async () => {
+  const axios = require("axios");
+  const { AuthFile } = require("../config/server.json");
   const {
     auth_domain,
     client_id,
@@ -76,8 +78,8 @@ const getAccessToken = async () => {
     axios
       .post(`https://${auth_domain}/oauth/token`, data, config)
       .then((response) => {
-        console.log("Response:", response.data);
-        resolve(response.data);
+        // console.log("Response:", response.data);
+        resolve(response.data.access_token);
       })
       .catch((error) => {
         console.error("Error:", error);
