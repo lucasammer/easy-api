@@ -16,5 +16,6 @@
   "CheckForUpdates": true,
   "AuthFile": "../config/auth0-settings_test.json",
   "AcceptsAuth0": true,
-  "corsOrigin": "*"
+  "corsOrigin": "*",
+  "logRequests": true
 }
