@@ -12,7 +12,7 @@ class auth0 {
       throw new Error("API doesn't accept auth0!");
     }
     // Key is a base64 Hash of the user id
-    this.userid = Buffer.from(key, "base64").toString("utf-8");
+    this.userid = decodeURI(Buffer.from(key, "base64url").toString("utf-8"));
     // "W1Rlc3RpbmcgU3RyaW5nXQ==" is "[Testing String]"
     this.valid = undefined;
   }
@@ -20,23 +20,25 @@ class auth0 {
    * Check if a key a user provided is a valid key for the auth0 account set in the AuthFile
    * @function isValid
    */
-  async isValid(force = false) {
+  async isValid(callback = (valid) => {}, force = false) {
     if (!force && typeof this.valid == Boolean) {
       return this.valid;
     }
     const axios = require("axios");
     const { AuthFile } = require("../config/server.json");
-    const { access_token, auth_domain } = require(AuthFile);
+    const { auth_domain } = require(AuthFile);
     const url = `https://${auth_domain}/api/v2/users/${this.userid}`;
-    const headers = { Authorization: `Bearer ${access_token}` };
+    const headers = { Authorization: `Bearer ${getAccessToken()}` };
     axios
       .get(url, { headers })
       .then((response) => {
         const userData = response.data;
         this.valid = true;
+        callback(this.valid);
       })
       .catch((e) => {
         this.valid = false;
+        callback(this.valid);
       });
     return this.valid;
   }
@@ -51,6 +53,39 @@ class auth0 {
      -d "{\"grant_type\":\"client_credentials\",\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET\",\"audience\":\"https://YOUR_API_IDENTIFIER\"}"
      ```
 */
+
+const getAccessToken = async () => {
+  const axios = require("axios");
+  const { AuthFile } = require("../config/server.json");
+  const {
+    auth_domain,
+    client_id,
+    client_secret,
+    api_identifier,
+  } = require(AuthFile);
+  const data = {
+    grant_type: "client_credentials",
+    client_id: client_id,
+    client_secret: client_secret,
+    audience: api_identifier,
+  };
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  return new Promise((resolve) => {
+    axios
+      .post(`https://${auth_domain}/oauth/token`, data, config)
+      .then((response) => {
+        // console.log("Response:", response.data);
+        resolve(response.data.access_token);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  });
+};
 
 const validKey = (key) => {
   let keys = fs.readFileSync(keyfile);

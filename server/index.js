@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("node:fs");
 const app = express();
+const cors = require("cors");
 
 const {
   port,
@@ -16,7 +17,14 @@ const {
   KeyCreationOriginMustMatch,
   keyencoding,
   ResetKeysTo,
+  corsOrigin,
 } = require("../config/server.json");
+
+app.use(
+  cors({
+    origin: corsOrigin,
+  })
+);
 
 const { api } = require(APIfile);
 
@@ -135,6 +143,8 @@ app.listen(port, () => {
   console.log("started listing on port %d (http://localhost:%d)", port, port);
 });
 
+const authprovider = require("./authprovider");
 module.exports = {
   error,
+  authprovider,
 };

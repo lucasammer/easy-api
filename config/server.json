@@ -10,10 +10,11 @@
   "allowsignup": true,
   "signupLink": "/createKey",
   "keyencoding": "base64",
-  "KeyCreationOriginMustMatch": "\\w(@)\\w(.)\\w",
+  "KeyCreationOriginMustMatch": "\\w+@\\w+\\.\\w{1,2}.\\*?((?!.)|.+\\.(?!.\\w{4,}))",
   "KeyCreationoriginMatchDesc": "matches any email (hopefully)",
   "ResetKeysTo": "{ \"--MasterKey--\": true }",
   "CheckForUpdates": true,
   "AuthFile": "../config/auth0-settings_test.json",
-  "AcceptsAuth0": true
+  "AcceptsAuth0": true,
+  "corsOrigin": "*"
 }

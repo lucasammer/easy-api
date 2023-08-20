@@ -15,6 +15,11 @@
       "name": "resetKeys",
       "publicLoc": "/resetKeys",
       "desc": "Script to reset valid API keys"
+    },
+    {
+      "name": "validate",
+      "publicLoc": "/validate",
+      "desc": "Validate auth0 keys"
     }
   ]
 }
