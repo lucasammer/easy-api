@@ -19,7 +19,7 @@
     {
       "name": "validate",
       "publicLoc": "/validate",
-      "desc": "Validate auth0 keys"
+      "desc": "Validate keys"
     }
   ]
 }
