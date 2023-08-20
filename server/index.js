@@ -18,6 +18,9 @@ const {
   keyencoding,
   ResetKeysTo,
   corsOrigin,
+  logRequests,
+  logTrafficToConsole,
+  logFilePath,
 } = require("../config/server.json");
 
 app.use(
@@ -52,6 +55,16 @@ const error = (code, res, doshow = showerrors, data = "nothing to show") => {
 };
 
 app.get("/", (req, res) => {
+  if (logRequests || logTrafficToConsole) {
+    const ip = req.ip;
+    const path = req.path;
+    const method = req.method;
+    const time = new Date().toISOString();
+
+    const writeString = `[${time}] ${ip}  ${method}  /`;
+    if (logTrafficToConsole) console.log(writeString);
+    if (logRequests) fs.appendFileSync(logFilePath, writeString + "\n");
+  }
   if (!hashome) {
     error(404, res);
     return;
@@ -68,6 +81,28 @@ const update = () => {
   // TODO do the update
 };
 update();
+
+if (!fs.existsSync("../logs/")) {
+  fs.mkdirSync("../logs/");
+}
+if (logRequests || logTrafficToConsole) {
+  fs.appendFileSync(
+    logFilePath,
+    `\n\n----------\nServer Started\n${new Date().toISOString()}\n----------\n`
+  );
+  console.log("logging all traffic");
+  app.use((req, res, next) => {
+    const ip = req.ip;
+    const path = req.path;
+    const method = req.method;
+    const time = new Date().toISOString();
+
+    const writeString = `[${time}] ${ip}  ${method}  ${path}`;
+    if (logTrafficToConsole) console.log(writeString);
+    if (logRequests) fs.appendFileSync(logFilePath, writeString + "\n");
+    next();
+  });
+}
 
 if (allowsignup) {
   app.get(signupLink, (req, res) => {

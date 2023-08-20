@@ -17,5 +17,7 @@
   "AuthFile": "../config/auth0-settings_test.json",
   "AcceptsAuth0": true,
   "corsOrigin": "*",
-  "logRequests": true
+  "logFilePath": "../logs/main.log",
+  "logRequests": true,
+  "logTrafficToConsole": true
 }
