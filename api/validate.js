@@ -6,9 +6,23 @@ module.exports = {
       error(400, res);
     }
     let auth = new authprovider.auth0(req.query.key);
-    auth.isValid((a) => console.log(a));
+
+    let returnObj = {
+      valid: false,
+      isMaster: false,
+      type: "none",
+      key: req.query.key,
+    };
+
     auth.isValid((valid) => {
-      res.json(JSON.parse(`{"valid":${valid}}`));
+      if (valid) {
+        returnObj.valid = true;
+        returnObj.type = "auth0";
+      } else {
+        returnObj.valid = authprovider.defaults.validKey(req.query.key);
+        returnObj.isMaster = authprovider.defaults.isMaster(req.query.key);
+      }
+      res.json(returnObj);
     });
   },
 };
