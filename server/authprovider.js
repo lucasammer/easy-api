@@ -33,7 +33,6 @@ class auth0 {
       .get(url, { headers })
       .then((response) => {
         const userData = response.data;
-        console.log(userData);
         this.valid = true;
         callback(this.valid);
       })
