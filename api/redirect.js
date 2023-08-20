@@ -1,3 +1,10 @@
+/**
+ *  Default API module for the easy api framework.
+ *  This file does not get updated.
+ *  @module redirect
+ *  @description Redirects the user and logs it to a file
+ */
+
 const { error } = require("../server/");
 const fs = require("node:fs");
 

@@ -1,3 +1,10 @@
+/**
+ *  Default API module for the easy api framework.
+ *  This file does not get updated.
+ *  @module validate
+ *  @description validates auth0 and standard keys
+ */
+
 const { error, authprovider } = require("../server");
 
 module.exports = {

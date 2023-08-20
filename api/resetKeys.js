@@ -1,3 +1,10 @@
+/**
+ *  Default API module for the easy api framework.
+ *  This file does not get updated.
+ *  @module resetKeys
+ *  @description resets the keys for the api to the default keys specified in server.json, can only be done by the master.
+ */
+
 const { error } = require("../server/");
 const { ResetKeysTo, keyfile } = require("../config/server.json");
 const fs = require("node:fs");
