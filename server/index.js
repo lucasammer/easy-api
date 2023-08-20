@@ -69,12 +69,6 @@ const update = () => {
 };
 update();
 
-app.get("/checkKey", (req, res) => {
-  let keys = fs.readFileSync(keyfile);
-  keys = JSON.parse(keys);
-  res.json(JSON.parse(`{"valid": ${keys.hasOwnProperty(req.query.key)}}`));
-});
-
 if (allowsignup) {
   app.get(signupLink, (req, res) => {
     if (!req.query.hasOwnProperty("origin")) {
