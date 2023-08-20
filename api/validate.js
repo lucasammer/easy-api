@@ -6,6 +6,7 @@ module.exports = {
       error(400, res);
     }
     let auth = new authprovider.auth0(req.query.key);
+    auth.isValid((a) => console.log(a));
     auth.isValid((valid) => {
       res.json(JSON.parse(`{"valid":${valid}}`));
     });

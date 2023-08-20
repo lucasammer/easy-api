@@ -7,7 +7,7 @@ const keyfile = require("../config/server.json").keyfile;
  */
 
 class auth0 {
-  constructor(key) {
+  constructor(key = "") {
     if (!require("../config/server.json").AcceptsAuth0) {
       throw new Error("API doesn't accept auth0!");
     }
@@ -28,11 +28,12 @@ class auth0 {
     const { AuthFile } = require("../config/server.json");
     const { auth_domain } = require(AuthFile);
     const url = `https://${auth_domain}/api/v2/users/${this.userid}`;
-    const headers = { Authorization: `Bearer ${getAccessToken()}` };
+    const headers = { Authorization: `Bearer ${await getAccessToken()}` };
     axios
       .get(url, { headers })
       .then((response) => {
         const userData = response.data;
+        console.log(userData);
         this.valid = true;
         callback(this.valid);
       })
