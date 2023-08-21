@@ -22,6 +22,7 @@ describe("Testing server", () => {
     app = require("../index");
     axios.get("http://localhost:8080").then((response) => {
       expect(response.status).toBe(200);
+      app.server.close();
       done();
     });
   });
