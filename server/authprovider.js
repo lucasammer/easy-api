@@ -28,7 +28,9 @@ class auth0 {
     const { AuthFile } = require("../config/server.json");
     const { auth_domain } = require(AuthFile);
     const url = `https://${auth_domain}/api/v2/users/${this.userid}`;
-    const headers = { Authorization: `Bearer ${await getAccessToken()}` };
+    const token = await getAccessToken();
+    console.log(token);
+    const headers = { Authorization: `Bearer ${token}` };
     axios
       .get(url, { headers })
       .then((response) => {
@@ -82,7 +84,7 @@ const getAccessToken = async () => {
         resolve(response.data.access_token);
       })
       .catch((error) => {
-        console.log(error);
+        resolve("");
       });
   });
 };
