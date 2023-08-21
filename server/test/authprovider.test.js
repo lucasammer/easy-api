@@ -4,7 +4,7 @@ describe("Testing the authprovider", () => {
   it("should throw an error for invalid URL", (done) => {
     const auth = new authprovider.auth0("e");
     auth.isValid((valid) => {
-      expect(valid.toBe(false)); // Should be false in case of an error
+      expect(valid).toBe(false); // Should be false in case of an error
       done();
     });
   });
