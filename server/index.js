@@ -166,7 +166,7 @@ for (const apiElement in api) {
   }
 }
 
-app.listen(port, () => {
+var server = app.listen(port, () => {
   console.log("started listing on port %d (http://localhost:%d)", port, port);
 });
 
@@ -174,4 +174,5 @@ const authprovider = require("./authprovider");
 module.exports = {
   error,
   authprovider,
+  server, // for testing mainly
 };
