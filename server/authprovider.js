@@ -82,7 +82,7 @@ const getAccessToken = async () => {
         resolve(response.data.access_token);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        throw error;
       });
   });
 };

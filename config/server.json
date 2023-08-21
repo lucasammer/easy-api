@@ -14,7 +14,7 @@
   "KeyCreationoriginMatchDesc": "matches any email (hopefully)",
   "ResetKeysTo": "{ \"--MasterKey--\": true }",
   "CheckForUpdates": true,
-  "AuthFile": "../config/auth0-settings_test.json",
+  "AuthFile": "../config/auth0-settings.json",
   "AcceptsAuth0": true,
   "corsOrigin": "*",
   "logFilePath": "../logs/main.log",
