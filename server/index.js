@@ -110,7 +110,7 @@ if (allowsignup) {
       );
       return;
     }
-    if (!req.query.origin.match(KeyCreationOriginMustMatch)) {
+    if (req.query.origin && typeof req.query.origin == 'string' && !req.query.origin.match(KeyCreationOriginMustMatch)) {
       res.json(
         JSON.parse(
           `{"created": false, "error": "origin doesn't meet criteria"}`
