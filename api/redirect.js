@@ -27,6 +27,10 @@ module.exports = {
 
     logmessage += req.query.to;
     fs.appendFileSync("../logs/redirects.log", logmessage + "\n");
+    if(!req.query.to.match("^(https?:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6}|[\d\.]+)([\/:?=&#]{1}[\da-z\.-]+)*[\/\?]?$")){
+      error(400, res);
+      return;
+    }
     res.send(
       `<p>if you are not redirected click <a href="${req.query.to}">here</a></p><script>window.location = "${req.query.to}"</script>`
     );
