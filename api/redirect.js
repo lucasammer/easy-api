@@ -27,7 +27,7 @@ module.exports = {
 
     logmessage += req.query.to;
     fs.appendFileSync("../logs/redirects.log", logmessage + "\n");
-    if(!req.query.to.match("^(https?:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6}|[\d\.]+)([\/:?=&#]{1}[\da-z\.-]+)*[\/\?]?$")){
+    if(!req.query.to || typeof req.query.to != 'string' || !req.query.to.match("^(https?:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6}|[\d\.]+)([\/:?=&#]{1}[\da-z\.-]+)*[\/\?]?$")){
       error(400, res);
       return;
     }
